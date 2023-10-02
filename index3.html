@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Employee Management</title>
+    <style>
+        /* CSS styles for the form and table */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 600px;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #total-salary {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Employee Management</h1>
+
+    <form id="employee-form">
+        <h2>Employee Details</h2>
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required>
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" required>
+
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" required>
+
+        <h2>Address</h2>
+        <label for="zip">Zip:</label>
+        <input type="text" id="zip" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" required>
+
+        <label for="street">Street:</label>
+        <input type="text" id="street" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" required>
+
+        <label for="po-box">PO Box:</label>
+        <input type="text" id="po-box" required>
+
+        <input type="submit" value="Add Employee">
+    </form>
+
+    <div id="total-salary">Total Salary: $0</div>
+
+    <table id="employee-list">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Zip</th>
+                <th>City</th>
+                <th>Street</th>
+                <th>Country</th>
+                <th>PO Box</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Employee rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <script>
+        // JavaScript code for calculating total salary and adding employees
+        document.getElementById("employee-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get input values
+            var firstName = document.getElementById("first-name").value;
+            var lastName = document.getElementById("last-name").value;
+            var age = document.getElementById("age").value;
+            var salary = parseInt(document.getElementById("salary").value);
+            var zip = document.getElementById("zip").value;
+            var city = document.getElementById("city").value;
+            var street = document.getElementById("street").value;
+            var country = document.getElementById("country").value;
+            var poBox = document.getElementById("po-box").value;
+
+            // Create new row in the table
+            var table = document.getElementById("employee-list").getElementsByTagName("tbody")[0];
+            var newRow = table.insertRow();
+
+            // Add cells to the new row
+            var cells = [
+                firstName,
+                lastName,
+                age,
+                zip,
+                city,
+                street,
+                country,
+                poBox
+            ];
+
+            for (var i = 0; i < cells.length; i++) {
+                var cell = newRow.insertCell(i);
+                cell.textContent = cells[i];
+            }
+
+            // Update total salary
+            var currentTotalSalary = parseInt(document.getElementById("total-salary").textContent.slice(14).replace(/[^0-9]/g, ''));
+            var newTotalSalary = currentTotalSalary + salary;
+            document.getElementById("total-salary").textContent = "Total Salary: $" + newTotalSalary;
+
+
+            // Reset form fields
+            document.getElementById("employee-form").reset();
+        });
+    </script>
+</body>
+
+</html>
